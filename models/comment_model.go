@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/rahulvramesh/groot-comments/db"
+	log "github.com/sirupsen/logrus"
 )
 
 //CommentModel - comment model
@@ -52,4 +53,48 @@ func (cm *CommentModel) DeleteOrgComments(orgName string) error {
 	}
 
 	return nil
+}
+
+//GetAllMembersByOrg - get all members by organization name
+func (cm *CommentModel) GetAllMembersByOrg(orgName string) ([]Member, error) {
+
+	var (
+		members []Member
+	)
+
+	db := db.GetSession()
+
+	rows, err := db.Select(`
+			DISTINCT(members.ID),
+			members.LOGIN,
+			members.url,
+			members.followers,
+			members.FOLLOWING 
+	`).
+		Table("members").
+		Joins("LEFT JOIN comments ON comments.author_id = members.ID").
+		Where("comments.organization = ? AND comments.deleted_at IS NULL", orgName).
+		Order("members.followers desc").
+		Rows()
+	defer rows.Close()
+	for rows.Next() {
+
+		memberTemp := Member{}
+
+		if err = rows.Scan(
+			&memberTemp.ID,
+			&memberTemp.Login,
+			&memberTemp.URL,
+			&memberTemp.Followers,
+			&memberTemp.Following,
+		); err != nil {
+			log.Error("failed to scan result")
+			return []Member{}, err
+		}
+
+		members = append(members, memberTemp)
+	}
+
+	return members, nil
+
 }

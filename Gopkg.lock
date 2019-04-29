@@ -2,43 +2,15 @@
 
 
 [[projects]]
-  branch = "master"
-  digest = "1:420f47ce73d41045e4d2ab666676c61ba4018af4f061f71f6f0251451c5e8bea"
-  name = "bitbucket.org/evhivetech/pdfgo"
+  digest = "1:c952f10089bb57d6e6d56d8880bcbb4d444b1d40b091354cb25b10a6c23b211a"
+  name = "github.com/bxcodec/faker"
   packages = [
-    "common",
-    "helpers",
+    ".",
+    "support/slice",
   ]
   pruneopts = "UT"
-  revision = "eec2cdbb9a057e192ba9cfbbce68c4a410f786db"
-
-[[projects]]
-  digest = "1:9f3b30d9f8e0d7040f729b82dcbc8f0dead820a133b3147ce355fc451f32d761"
-  name = "github.com/BurntSushi/toml"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005"
-  version = "v0.3.1"
-
-[[projects]]
-  digest = "1:32e98f239e0f8e9968370dbb797e301e59a747a99588917ca24550365465e47e"
-  name = "github.com/SebastiaanKlippert/go-wkhtmltopdf"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "72a7793efd38728796273861bb27d590cc33d9d4"
-  version = "v1.4.1"
-
-[[projects]]
-  branch = "master"
-  digest = "1:e307126636dff23d73e1aa30f6cb117ce76f493548c62ff0e7633f903c9172aa"
-  name = "github.com/afex/hystrix-go"
-  packages = [
-    "hystrix",
-    "hystrix/metric_collector",
-    "hystrix/rolling",
-  ]
-  pruneopts = "UT"
-  revision = "fa1af6a1f4f56e0e50d427fe901cd604d8c6fb8a"
+  revision = "bfe096fd9e446fc441f79f1aa53cf1c9b5594179"
+  version = "v2.0.1"
 
 [[projects]]
   digest = "1:d5f97fc268267ec1b61c3453058c738246fc3e746f14b1ae25161513b7367b0c"
@@ -81,14 +53,6 @@
   version = "v1.0.2"
 
 [[projects]]
-  digest = "1:25e2e1167476b728d2b1fd5d8be3dde6de21ad7469a89aab0353d6dce9c8e998"
-  name = "github.com/leekchan/accounting"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "a35854c075934d6aa1a6c1ab3ea8a82ee0dc1a93"
-  version = "v0.2"
-
-[[projects]]
   digest = "1:bc1c0be40c67b6b4aee09d7508d5a2a52c1c116b1fa43806dad2b0d6b4d4003b"
   name = "github.com/lib/pq"
   packages = [
@@ -117,52 +81,12 @@
   version = "1.0.1"
 
 [[projects]]
-  digest = "1:7aefb397a53fc437c90f0fdb3e1419c751c5a3a165ced52325d5d797edf1aca6"
-  name = "github.com/moul/http2curl"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d"
-  version = "v1.0.0"
-
-[[projects]]
-  digest = "1:d776f3e95774a8719f2e57fabbbb33103035fe072dcf6f1864f33abd17b753e5"
-  name = "github.com/parnurzeal/gorequest"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "a578a48e8d6ca8b01a3b18314c43c6716bb5f5a3"
-  version = "v0.2.15"
-
-[[projects]]
-  digest = "1:cf31692c14422fa27c83a05292eb5cbe0fb2775972e8f1f8446a71549bd8980b"
-  name = "github.com/pkg/errors"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "ba968bfe8b2f7e042a574c888954fccecfa385b4"
-  version = "v0.8.1"
-
-[[projects]]
-  branch = "master"
-  digest = "1:fe82d420fd3b54b2dab537f6f7368eba15fa3b3d6e9be0950502c0b4aab886fc"
-  name = "github.com/rahulvramesh/robo-validator"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "b55ffed6e3fec20cc0655b831cdd8c53af678388"
-
-[[projects]]
   digest = "1:fd61cf4ae1953d55df708acb6b91492d538f49c305b364a014049914495db426"
   name = "github.com/sirupsen/logrus"
   packages = ["."]
   pruneopts = "UT"
   revision = "8bdbc7bcc01dcbb8ec23dc8a28e332258d25251f"
   version = "v1.4.1"
-
-[[projects]]
-  branch = "master"
-  digest = "1:d6bb6f3240a488ffe5bb6952b513569d009927dcb20ff94885f87b76cef2b698"
-  name = "github.com/streadway/amqp"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "75d898a42a940fbc854dfd1a4199eabdc00cf024"
 
 [[projects]]
   digest = "1:d688f4ad71b5dfad95c2d74cb0feac09f8f3c32ae5cecc078230dbdeece39e53"
@@ -174,58 +98,21 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6b32e89d721bcc3f5ad131f7ea1c4926ecf2c49225feff288a1d2e9fd86c1bd3"
-  name = "golang.org/x/net"
-  packages = [
-    "idna",
-    "publicsuffix",
-  ]
-  pruneopts = "UT"
-  revision = "4829fb13d2c62012c17688fa7f629f371014946d"
-
-[[projects]]
-  branch = "master"
   digest = "1:dcd2e9de31e20e01b156288ce4fc239498564295bdbb59d8aaf591af94778162"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
   revision = "804c0c7841b595338f049388006a3945cb3cfad1"
 
-[[projects]]
-  digest = "1:8d8faad6b12a3a4c819a3f9618cb6ee1fa1cfc33253abeeea8b55336721e3405"
-  name = "golang.org/x/text"
-  packages = [
-    "collate",
-    "collate/build",
-    "internal/colltab",
-    "internal/gen",
-    "internal/language",
-    "internal/language/compact",
-    "internal/tag",
-    "internal/triegen",
-    "internal/ucd",
-    "language",
-    "secure/bidirule",
-    "transform",
-    "unicode/bidi",
-    "unicode/cldr",
-    "unicode/norm",
-    "unicode/rangetable",
-  ]
-  pruneopts = "UT"
-  revision = "342b2e1fbaa52c93f31447ad2c6abc048c63e475"
-  version = "v0.3.2"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "bitbucket.org/evhivetech/pdfgo/common",
+    "github.com/bxcodec/faker",
     "github.com/gorilla/mux",
     "github.com/jinzhu/gorm",
     "github.com/json-iterator/go",
     "github.com/lib/pq",
-    "github.com/rahulvramesh/robo-validator",
     "github.com/sirupsen/logrus",
     "github.com/urfave/negroni",
   ]

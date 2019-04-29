@@ -15,6 +15,7 @@ func SetCommentsRouter(router *mux.Router) *mux.Router {
 	commentRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.StoreCommentController).Methods("POST")
 	commentRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.GetCommentsController).Methods("GET")
 	commentRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.DeleteCommentsController).Methods("DELETE")
+	commentRouter.HandleFunc("/orgs/{orgName}/members/", controllers.GetAllMemberByOrgController).Methods("GET")
 
 	router.PathPrefix("/orgs").Handler(negroni.New(
 		negroni.Wrap(commentRouter),

@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/rahulvramesh/groot-comments/db"
+	"github.com/rahulvramesh/groot-comments/models"
 
 	"github.com/rahulvramesh/groot-comments/middlewares"
 	"github.com/rahulvramesh/groot-comments/routers"
@@ -21,8 +22,10 @@ func main() {
 	//initialize router
 	router := routers.InitRoutes()
 
-	//migaration
-	//db.GetSession().AutoMigrate(&models.Comment{})
+	//migaration - startup execution only
+	db.GetSession().AutoMigrate(&models.Comment{}, &models.Member{})
+	//call seeder - startup execution only
+	models.Seed()
 
 	//set middlewere for user id
 	n := negroni.New()

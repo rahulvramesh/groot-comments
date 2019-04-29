@@ -38,14 +38,6 @@ func StoreCommentController(w http.ResponseWriter, r *http.Request) {
 	payload.AuthorID, _ = strconv.Atoi(r.Context().Value("author").(string))
 	payload.Organization = mux.Vars(r)["orgName"]
 
-	//my custom validator module for event based validation
-	// err = validator.Validate(payload, "store_comment")
-	// if err != nil {
-	// 	log.Error("Invalid payload")
-	// 	utils.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
-	// 	return
-	// }
-
 	//save to db
 	responseObj, err := CommentModelObj.StoreComment(payload)
 
@@ -115,6 +107,32 @@ func DeleteCommentsController(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	c, _ := jsoniter.Marshal(models.Comment{})
+	w.Write(c)
+
+}
+
+//GetAllMemberByOrgController - get all members who have commented in organzation
+func GetAllMemberByOrgController(w http.ResponseWriter, r *http.Request) {
+
+	var (
+		CommentModelObj models.CommentModel
+	)
+
+	//get org name
+	orgName := mux.Vars(r)["orgName"]
+
+	//call delete model
+	members, err := CommentModelObj.GetAllMembersByOrg(orgName)
+
+	if err != nil {
+		log.Error(err.Error())
+		utils.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	c, _ := jsoniter.Marshal(members)
 	w.Write(c)
 
 }
