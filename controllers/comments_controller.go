@@ -6,12 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"bitbucket.org/evhivetech/pdfgo/common"
 	"github.com/gorilla/mux"
 	"github.com/rahulvramesh/groot-comments/models"
+	"github.com/rahulvramesh/groot-comments/utils"
 
 	jsoniter "github.com/json-iterator/go"
-	validator "github.com/rahulvramesh/robo-validator"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -22,28 +21,45 @@ func StoreCommentController(w http.ResponseWriter, r *http.Request) {
 	var (
 		payload *models.Comment
 		err     error
+
+		CommentModelObj models.CommentModel
 	)
 
 	//get the org name
-	payload.AuthorID, _ = strconv.Atoi(r.Context().Value("author").(string))
-	payload.Organization = mux.Vars(r)["orgName"]
 
 	b, _ := ioutil.ReadAll(r.Body)
 	err = jsoniter.Unmarshal(b, &payload)
 	if err != nil {
 		log.Error("Failed to unmarhsal json")
-		common.DisplayAppError(w, errors.New("please check request payload data type"), "invalid filter request", http.StatusBadRequest)
+		utils.DisplayAppError(w, errors.New("please check request payload data type"), "invalid filter request", http.StatusBadRequest)
 		return
 	}
+
+	payload.AuthorID, _ = strconv.Atoi(r.Context().Value("author").(string))
+	payload.Organization = mux.Vars(r)["orgName"]
 
 	//my custom validator module for event based validation
-	err = validator.Validate(payload, "store_comment")
+	// err = validator.Validate(payload, "store_comment")
+	// if err != nil {
+	// 	log.Error("Invalid payload")
+	// 	utils.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+	// 	return
+	// }
+
+	//save to db
+	responseObj, err := CommentModelObj.StoreComment(payload)
+
 	if err != nil {
-		log.Error("Invalid payload")
-		common.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		log.Error(err.Error())
+		utils.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	//save to db
+	//else print the response
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	c, _ := jsoniter.Marshal(responseObj)
+	w.Write(c)
 
 }

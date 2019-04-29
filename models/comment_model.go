@@ -4,10 +4,19 @@ import (
 	"github.com/rahulvramesh/groot-comments/db"
 )
 
+//CommentModel - comment model
+type CommentModel struct {
+}
+
 //StoreComment -  store comment to db
-func StoreComment(comment *Comment) {
+func (cm *CommentModel) StoreComment(comment *Comment) (*Comment, error) {
 	db := db.GetSession()
 
-	db.Create(&comment)
+	err := db.Create(&comment).Error
 
+	if err != nil {
+		return nil, err
+	}
+
+	return comment, nil
 }
