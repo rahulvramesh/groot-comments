@@ -58,8 +58,63 @@ func StoreCommentController(w http.ResponseWriter, r *http.Request) {
 	//else print the response
 
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	c, _ := jsoniter.Marshal(responseObj)
+	w.Write(c)
+
+}
+
+//GetCommentsController -
+func GetCommentsController(w http.ResponseWriter, r *http.Request) {
+
+	var (
+		CommentModelObj models.CommentModel
+	)
+
+	//get org name
+	orgName := mux.Vars(r)["orgName"]
+
+	//call the model
+	responseObj, err := CommentModelObj.GetComments(orgName)
+
+	if err != nil {
+		log.Error(err.Error())
+		utils.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	//else print the response
+
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	c, _ := jsoniter.Marshal(responseObj)
+	w.Write(c)
+
+}
+
+//DeleteCommentsController -
+func DeleteCommentsController(w http.ResponseWriter, r *http.Request) {
+
+	var (
+		CommentModelObj models.CommentModel
+	)
+
+	//get org name
+	orgName := mux.Vars(r)["orgName"]
+
+	//call delete model
+	err := CommentModelObj.DeleteOrgComments(orgName)
+
+	if err != nil {
+		log.Error(err.Error())
+		utils.DisplayAppError(w, err, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	//else print the response
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	c, _ := jsoniter.Marshal(models.Comment{})
 	w.Write(c)
 
 }

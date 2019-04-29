@@ -9,13 +9,15 @@ import (
 // SetCommentsRouter -
 func SetCommentsRouter(router *mux.Router) *mux.Router {
 
-	laRouter := mux.NewRouter()
+	commentRouter := mux.NewRouter()
 
 	//find all data for spreadsheet/ csv
-	laRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.StoreCommentController).Methods("POST")
+	commentRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.StoreCommentController).Methods("POST")
+	commentRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.GetCommentsController).Methods("GET")
+	commentRouter.HandleFunc("/orgs/{orgName}/comments/", controllers.DeleteCommentsController).Methods("DELETE")
 
 	router.PathPrefix("/orgs").Handler(negroni.New(
-		negroni.Wrap(laRouter),
+		negroni.Wrap(commentRouter),
 	))
 
 	return router
