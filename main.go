@@ -3,32 +3,34 @@ package main
 import (
 	"net/http"
 
-	postgres "github.com/rahulvramesh/groot-comments/repository/postgres"
+	"github.com/rahulvramesh/groot-comments/db"
+	"github.com/rahulvramesh/groot-comments/middlewares"
+	"github.com/rahulvramesh/groot-comments/routers"
+	"github.com/urfave/negroni"
 
 	log "github.com/sirupsen/logrus"
-	"github.com/urfave/negroni"
 )
 
 func main() {
 
-	//connect to db
-	connectDB := postgres.New().Connect().GetSession()
-	defer connectDB.Close()
+	//init db
+	db.Connect()
+	defer db.GetSession().Close()
 
-	//rest of settings
+	//initialize router
+	router := routers.InitRoutes()
+
+	//set middlewere for user id
 	n := negroni.New()
-	//set panic recovery
+	n.Use(negroni.HandlerFunc(middlewares.FetchGrootUser))
 	n.Use(negroni.NewRecovery())
+	n.UseHandler(router)
 
 	server := &http.Server{
-		Addr: "0.0.0.0:8005",
-		// ReadTimeout:  time.Duration(svc.ReadTimeout) * time.Second,
-		// WriteTimeout: time.Duration(svc.WriteTimeout) * time.Second,
+		Addr:    "0.0.0.0:8005",
 		Handler: n,
 	}
 
-	log.WithFields(log.Fields{
-		"request_id": "000",
-	}).Info("Groot Comments Running At :8005")
+	log.Info("Listening on port!!!")
 	server.ListenAndServe()
 }
