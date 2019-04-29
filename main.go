@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/rahulvramesh/groot-comments/db"
+
 	"github.com/rahulvramesh/groot-comments/middlewares"
 	"github.com/rahulvramesh/groot-comments/routers"
 	"github.com/urfave/negroni"
@@ -19,6 +20,9 @@ func main() {
 
 	//initialize router
 	router := routers.InitRoutes()
+
+	//migaration
+	//db.GetSession().AutoMigrate(&models.Comment{})
 
 	//set middlewere for user id
 	n := negroni.New()

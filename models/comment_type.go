@@ -6,6 +6,7 @@ import "github.com/jinzhu/gorm"
 type Comment struct {
 	gorm.Model
 
-	Comment  string `json:"comment"`
-	AuthorID int    `json:"author"`
+	Comment      string `json:"comment" validate:"store_comment:required"`
+	AuthorID     int    `json:"author"`
+	Organization string `json:"organization"`
 }

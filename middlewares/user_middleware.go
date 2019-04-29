@@ -22,8 +22,7 @@ func FetchGrootUser(w http.ResponseWriter, r *http.Request, next http.HandlerFun
 
 	} else {
 		//else set the user in context
-		//context.WithValue(r.Context(), "devconUser", userId)
-		ctx := context.WithValue(r.Context(), "RequestBy", userID)
+		ctx := context.WithValue(r.Context(), "author", userID)
 
 		//pass to next function
 		next.ServeHTTP(w, r.WithContext(ctx))

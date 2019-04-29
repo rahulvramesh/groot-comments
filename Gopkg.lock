@@ -3,12 +3,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5ff82f3fdc7d1b5016b1bd315d09ef540cde64a6b4c2f7000c52b673e25a68e4"
+  digest = "1:420f47ce73d41045e4d2ab666676c61ba4018af4f061f71f6f0251451c5e8bea"
   name = "bitbucket.org/evhivetech/pdfgo"
   packages = [
     "common",
     "helpers",
-    "middlewares",
   ]
   pruneopts = "UT"
   revision = "eec2cdbb9a057e192ba9cfbbce68c4a410f786db"
@@ -142,6 +141,14 @@
   version = "v0.8.1"
 
 [[projects]]
+  branch = "master"
+  digest = "1:fe82d420fd3b54b2dab537f6f7368eba15fa3b3d6e9be0950502c0b4aab886fc"
+  name = "github.com/rahulvramesh/robo-validator"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b55ffed6e3fec20cc0655b831cdd8c53af678388"
+
+[[projects]]
   digest = "1:fd61cf4ae1953d55df708acb6b91492d538f49c305b364a014049914495db426"
   name = "github.com/sirupsen/logrus"
   packages = ["."]
@@ -213,10 +220,12 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "bitbucket.org/evhivetech/pdfgo/middlewares",
+    "bitbucket.org/evhivetech/pdfgo/common",
     "github.com/gorilla/mux",
     "github.com/jinzhu/gorm",
+    "github.com/json-iterator/go",
     "github.com/lib/pq",
+    "github.com/rahulvramesh/robo-validator",
     "github.com/sirupsen/logrus",
     "github.com/urfave/negroni",
   ]
