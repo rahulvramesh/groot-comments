@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: groot-rest
+  name: groot-rest
+  namespace: default
+spec:
+  replicas: 1
+  revisionHistoryLimit: 14
+  selector:
+    matchLabels:
+      app:groot-rest
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: groot-rest
+    spec:
+      containers:
+      - env:
+       - name: DATABASE_CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: develdb
+              key: pgdb
+        - name: HOSTNAME
+          value: groot
+        image: rahulvramesh/groot-rest
+        imagePullPolicy: Always
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sleep","5"]
+        name: groot-rest
+        ports:
+        - containerPort: 8005
+          name: groot-port
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 100m
+        readinessProbe:
+          failureThreshold: 1
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: groot-port
+          timeoutSeconds: 3
