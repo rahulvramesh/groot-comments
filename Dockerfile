@@ -1,27 +1,14 @@
-# Builder
-FROM golang:latest as builder
-
-RUN apk update && apk upgrade && \
-    apk --update add git gcc make && \
-    go get -u github.com/golang/dep/cmd/dep
-
-WORKDIR /go/src/github.com/rahulvramesh/groot-comments
-
-COPY . .
-
+#builder
+FROM golang:latest AS builder
+ADD . $GOPATH/src/github.com/rahulvramesh/groot-comments
+WORKDIR $GOPATH/src/github.com/rahulvramesh/groot-comments
+RUN go get -u github.com/golang/dep/cmd/dep
 RUN make server
 
-# Distribution
+# final stage
 FROM alpine:latest
-
-RUN apk update && apk upgrade && \
-    apk --update --no-cache add tzdata && \
-    mkdir /app 
-
-WORKDIR /app 
-
+RUN apk --no-cache add ca-certificates
+COPY --from=builder /server ./
+RUN chmod +x ./server
+ENTRYPOINT ["./server"]
 EXPOSE 8005
-
-COPY --from=builder /go/src/github.com/rahulvramesh/groot-comments/server /app
-
-CMD /app/server

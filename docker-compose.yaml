@@ -1,0 +1,26 @@
+version: '3'
+services:
+  pgsql:
+    image: postgres:latest
+    container_name: groot_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: comments_groot
+  rest:
+    image: groot-rest-api
+    container_name: groot_rest_api
+    build: .
+    restart: always
+    ports:
+      - 8005:8005
+    depends_on:
+      - pgsql
+    links:
+      - pgsql
+    environment:
+      - DATABASE_CONNECTION_STRING=postgres://postgres:postgres@pgsql:5432/comments_groot?sslmode=disable
+      - HOSTNAME=groot
+   

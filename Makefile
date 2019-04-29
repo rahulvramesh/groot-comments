@@ -7,10 +7,10 @@ vendor:
 	@dep ensure -v
 
 server: vendor
-	go build -o ${BINARY}
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o /${BINARY} .
 
 install: 
-	go build -o ${BINARY}
+	GOARCH=amd64 CGO_ENABLED=0 GOOS=linux go build -gcflags "all=-N -l" -o ${BINARY}
 
 unittest:
 	go test -short $$(go list ./... | grep -v /vendor/)
@@ -19,10 +19,10 @@ clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
 docker:
-	docker build -t go-clean-arch .
+	docker build -t groot-rest-api .
 
 run:
-	docker-compose up -d
+	docker-compose up --build
 
 stop:
 	docker-compose down

@@ -25,6 +25,9 @@ func (*GormLogger) Print(v ...interface{}) {
 
 func Connect() {
 	var err error
+
+	log.Println(os.Getenv("DATABASE_CONNECTION_STRING"))
+
 	db, err = gorm.Open("postgres", os.Getenv("DATABASE_CONNECTION_STRING"))
 	if err != nil {
 		log.Fatal("failed to connect database")
