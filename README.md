@@ -8,3 +8,9 @@ only for testing , please don't use.
     -   K8
     -   Swarm / Compose 
     -   Native Docker
+
+# Run Docker Compose
+
+```sh
+    make run
+```
