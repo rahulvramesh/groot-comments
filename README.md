@@ -15,7 +15,7 @@ only for testing , please don't use.
     make run
 ```
 
-#for viewing documentation
+# For viewing documentation
 
 ```sh
     godoc -http=:6060
