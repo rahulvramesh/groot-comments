@@ -1,3 +1,4 @@
+//Package models - model functions and entities
 package models
 
 import (
@@ -9,7 +10,8 @@ import (
 type CommentModel struct {
 }
 
-//StoreComment -  store comment to db
+//StoreComment -  store comments to db
+//returns stored comment
 func (cm *CommentModel) StoreComment(comment *Comment) (*Comment, error) {
 	db := db.GetSession()
 
@@ -22,7 +24,8 @@ func (cm *CommentModel) StoreComment(comment *Comment) (*Comment, error) {
 	return comment, nil
 }
 
-//GetComments - get all comments
+//GetComments - get all comments by organization name
+//returns array commets
 func (cm *CommentModel) GetComments(orgName string) ([]Comment, error) {
 
 	var (
@@ -41,7 +44,7 @@ func (cm *CommentModel) GetComments(orgName string) ([]Comment, error) {
 
 }
 
-//DeleteOrgComments -  delete all organization comments
+//DeleteOrgComments -  delete all organization comments / soft delete
 func (cm *CommentModel) DeleteOrgComments(orgName string) error {
 
 	db := db.GetSession()
@@ -64,6 +67,7 @@ func (cm *CommentModel) GetAllMembersByOrg(orgName string) ([]Member, error) {
 
 	db := db.GetSession()
 
+	//used raw query for joining
 	rows, err := db.Select(`
 			DISTINCT(members.ID),
 			members.LOGIN,

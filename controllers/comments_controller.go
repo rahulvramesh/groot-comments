@@ -1,3 +1,4 @@
+//Package controllers - functions for routes
 package controllers
 
 import (

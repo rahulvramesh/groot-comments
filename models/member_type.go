@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-//Member - member type
+//Member - model for members
 type Member struct {
 	ID        uint `gorm:"primary_key"`
 	CreatedAt time.Time

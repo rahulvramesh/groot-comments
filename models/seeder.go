@@ -9,6 +9,7 @@ import (
 	"github.com/bxcodec/faker"
 )
 
+//Seed - seed function used to seed random data to db
 func Seed() {
 
 	db := db.GetSession()
