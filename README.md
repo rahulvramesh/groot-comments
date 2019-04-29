@@ -14,3 +14,12 @@ only for testing , please don't use.
 ```sh
     make run
 ```
+
+#for viewing documentation
+
+```sh
+    godoc -http=:6060
+```
+
+go and open 
+`http://localhost:6060/pkg/github.com/rahulvramesh/groot-comments/`
