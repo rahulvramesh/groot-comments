@@ -23,3 +23,8 @@ only for testing , please don't use.
 
 go and open 
 `http://localhost:6060/pkg/github.com/rahulvramesh/groot-comments/`
+
+
+# Deployment K8
+
+`https://github.com/rahulvramesh/groot-comments/tree/master/docs/k8-deployment`
