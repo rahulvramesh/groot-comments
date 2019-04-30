@@ -25,12 +25,7 @@
 
 ## Improvements Can Be Done
     -   Using Clean Code Architecture
-
-## Deployments Plannings To Add
-    -   K8
-    -   Swarm / Compose 
-    -   Native Docker
-
+    
 # Run Docker Compose
 
 ```sh
